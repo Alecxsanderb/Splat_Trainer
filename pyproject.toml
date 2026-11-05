@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "splat"
+version = "0.1.0"
+description = "Custom 3D Gaussian Splatting trainer with a hand-written PyTorch rasterizer"
+requires-python = ">=3.10"
+# torch is intentionally NOT listed: install a ROCm (or CUDA) build separately. See README.
+dependencies = [
+    "numpy",
+    "pillow",
+    "pyyaml",
+    "tqdm",
+    "matplotlib",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
