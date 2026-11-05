@@ -9,21 +9,46 @@ plus efficiency-oriented extensions. Fall 2026 AI course final project.
   `# AI-ASSISTED (non-core) — see CLAUDE.md`.
 - `paper/`, `reports/`: human-written prose; grammar suggestions only.
 
-## Setup (Linux + ROCm)
-PyTorch is **not** a dependency in `pyproject.toml`. Install a ROCm build yourself from
-the official wheel index first, then install the package:
+## Setup
+PyTorch is **not** a dependency in `pyproject.toml`: it is installed separately for each platform.
+
+### macOS (development)
+Apple Silicon, MPS backend.
 
 ```bash
-python3 -m venv .venv && source .venv/bin/activate
-pip install --index-url https://download.pytorch.org/whl/rocmX.Y torch   # pick the ROCm version
+python3 -m venv .venv
+source .venv/bin/activate
+pip install torch
 pip install -e .
 python scripts/check_env.py
 ```
 
-Data (Mip-NeRF 360, already includes `images_8`):
+### Windows 11 + ROCm (training)
+RX 9070 XT, using AMD's native PyTorch-on-Windows builds. **AMD's ROCm-for-Radeon Windows
+documentation is the source of truth** for versions and download locations; nothing is
+pinned here because those change.
+
+1. Manually install AMD's PyTorch-on-Windows driver package (Adrenalin edition that
+   supports PyTorch), following AMD's docs.
+2. Create a venv with the **specific Python version AMD's wheels require** (check the docs),
+   then install PyTorch exactly as AMD's ROCm-for-Radeon Windows docs say. Do **not** use
+   the pytorch.org install selector.
+3. Install the package and verify:
+
+```powershell
+pip install -e .
+python scripts\check_env.py
+```
+
+## Data
+Mip-NeRF 360 (the release already includes `images_8`):
 
 ```bash
-bash scripts/download_mipnerf360.sh
+bash scripts/download_mipnerf360.sh            # macOS
+```
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\download_mipnerf360.ps1   # Windows
 ```
 
 Configs: `configs/dev.yaml` (7k iterations), `configs/final.yaml` (30k).
