@@ -4,7 +4,8 @@ A 3D Gaussian Splatting trainer with a hand-written differentiable rasterizer in
 plus efficiency-oriented extensions. Fall 2026 AI course final project.
 
 ## AI-use policy (summary; full rules in CLAUDE.md)
-- `src/splat/core/`, `src/splat/ext/`, `tests/`: **human-written only**.
+- `src/splat/` (everything except `src/splat/assisted/`) and `tests/`: **human-written only**.
+  Assistants may explain concepts and point out likely bugs, but may not write code or give fixes.
 - `src/splat/assisted/`, `scripts/`: AI-assisted allowed; each file starts with the header
   `# AI-ASSISTED (non-core) — see CLAUDE.md`.
 - `paper/`, `reports/`: human-written prose; grammar suggestions only.
